@@ -1,16 +1,16 @@
-name: Authorizer
-description: Your data, your control. Fully open source, authentication and authorization.
-instructions: null
+name: Windmill
+description: Open-source developer platform to turn scripts into workflows and UIs.
+instructions: Login using admin@windmill.dev:changeme
 changeLog:
-  - date: 2023-1-25
+  - date: 2023-3-1
     description: first release
 links:
   - label: Website
-    url: https://authorizer.dev
+    url: https://windmill.dev
   - label: Documentation
-    url: https://docs.authorizer.dev/
+    url: https://docs.windmill.dev
   - label: Github
-    url: https://github.com/authorizerdev/authorizer
+    url: https://github.com/windmill-labs/windmill
 contributors:
   - name: Supernova3339
     url: https://github.com/Supernova3339
@@ -18,10 +18,10 @@ schema:
   type: object
   required:
     - projectName
+    - domain
     - appServiceName
     - appServiceImage
     - databaseServiceName
-    - redisServiceName
   properties:
     projectName:
       type: string
@@ -29,16 +29,15 @@ schema:
     appServiceName:
       type: string
       title: App Service Name
-      default: authorizer
+      default: windmill
+    domain:
+      type: string
+      title: Domain
     appServiceImage:
       type: string
       title: App Service Image
-      default: lakhansamani/authorizer:1.1.38
+      default: ghcr.io/windmill-labs/windmill:1.71
     databaseServiceName:
       type: string
       title: Database Service Name
-      default: authorizer-db
-    redisServiceName:
-      type: string
-      title: Redis Service Name
-      default: authorizer-redis
+      default: windmill-db

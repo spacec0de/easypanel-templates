@@ -4,7 +4,6 @@ import { Input } from "./meta";
 export function generate(input: Input): Output {
   const services: Services = [];
   const databasePassword = randomPassword();
-  const redisPassword = randomPassword();
 
   services.push({
     type: "app",
@@ -12,19 +11,29 @@ export function generate(input: Input): Output {
       projectName: input.projectName,
       serviceName: input.appServiceName,
       env: [
-        `ENV=production`,
+        `BASE_URL=https://${input.domain}`,
         `DATABASE_URL=postgres://postgres:${databasePassword}@${input.projectName}_${input.databaseServiceName}:5432/${input.projectName}?sslmode=disable`,
-        `DATABASE_TYPE=postgres`,
-        `REDIS_URL=redis://default:${redisPassword}@${input.projectName}_${input.redisServiceName}:6379`,
+        `RUST_LOG=info`,
+        `NUM_WORKERS=1`,
+        `DISABLE_SERVER=false`,
+        `METRICS_ADDR=false`,
+        `KEEP_JOB_DIR=false`,
+        `DENO_PATH=/usr/bin/deno`,
+        `PYTHON_PATH=/usr/local/bin/python3`,
       ].join("\n"),
       source: {
         type: "image",
         image: input.appServiceImage,
       },
       proxy: {
-        port: 8080,
+        port: 8000,
         secure: true,
       },
+      domains: [
+        {
+          name: input.domain,
+        },
+      ],
     },
   });
 
@@ -34,15 +43,6 @@ export function generate(input: Input): Output {
       projectName: input.projectName,
       serviceName: input.databaseServiceName,
       password: databasePassword,
-    },
-  });
-
-  services.push({
-    type: "redis",
-    data: {
-      projectName: input.projectName,
-      serviceName: input.redisServiceName,
-      password: redisPassword,
     },
   });
 

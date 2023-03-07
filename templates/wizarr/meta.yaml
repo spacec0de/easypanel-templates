@@ -1,12 +1,16 @@
-name: Silicon Notes
-description: A somewhat lightweight, low-friction personal knowledge base.
+name: Wizarr
+description: Wizarr is an advanced user invitation and management system for Jellyfin, Plex, Emby, etc
 instructions: null
 changeLog:
-  - date: 2023-1-28
+  - date: 2023-3-1
     description: first release
 links:
+  - label: Website
+    url: https://wizarr.dev
+  - label: Documentation
+    url: https://docs.wizarr.dev
   - label: Github
-    url: https://github.com/cu/silicon
+    url: https://github.com/Wizarrrr/wizarr
 contributors:
   - name: Supernova3339
     url: https://github.com/Supernova3339
@@ -14,6 +18,7 @@ schema:
   type: object
   required:
     - projectName
+    - domain
     - appServiceName
     - appServiceImage
   properties:
@@ -23,8 +28,11 @@ schema:
     appServiceName:
       type: string
       title: App Service Name
-      default: silicon
+      default: wizarr
+    domain:
+      type: string
+      title: Domain
     appServiceImage:
       type: string
       title: App Service Image
-      default: bityard/silicon:619334fb58a09c4208008316062c0ded0caefb5b
+      default: ghcr.io/wizarrrr/wizarr:2.1.0
